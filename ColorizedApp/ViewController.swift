@@ -25,6 +25,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         colorPreviewView.layer.cornerRadius = 25
+        
+        updatePreview()
     }
     
     //MARK: - IB Actions
@@ -43,7 +45,12 @@ class ViewController: UIViewController {
     
     //MARK: - Private Methods
     private func updatePreview(){
-        colorPreviewView.backgroundColor = UIColor(red: CGFloat(redColorSlider.value), green: CGFloat(greenColorSlider.value),blue: CGFloat(blueColorSlider.value),alpha: 1)
+        colorPreviewView.backgroundColor = UIColor(
+            red: CGFloat(redColorSlider.value),
+            green: CGFloat(greenColorSlider.value),
+            blue: CGFloat(blueColorSlider.value),
+            alpha: 1
+        )
     }
 
 }
