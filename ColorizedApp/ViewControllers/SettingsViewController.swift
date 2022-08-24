@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class SettingsViewController: UIViewController {
     
-    //MARK: - IB Outlets
+    //MARK: - IBOutlets
     @IBOutlet var colorPreviewView: UIView!
     
     @IBOutlet var redValueLabel: UILabel!
@@ -20,27 +20,41 @@ class ViewController: UIViewController {
     @IBOutlet var greenColorSlider: UISlider!
     @IBOutlet var blueColorSlider: UISlider!
     
+    //MARK: - Public Properties
+    var colorDelegate: SettingsViewControllerDelegate!
+    var backgroundColor: (Float, Float, Float)!
+    
     //MARK: - Override Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         colorPreviewView.layer.cornerRadius = 25
         
+        redColorSlider.value = backgroundColor.0
+        greenColorSlider.value = backgroundColor.1
+        blueColorSlider.value = backgroundColor.2
+        
         updatePreview()
     }
     
-    //MARK: - IB Actions
+    //MARK: - IBActions
     @IBAction func changeRedColorValue() {
-        redValueLabel.text = String(format: "%.2f", redColorSlider.value)
         updatePreview()
     }
     @IBAction func changeGreenColorValue() {
-        greenValueLabel.text = String(format: "%.2f", greenColorSlider.value)
         updatePreview()
     }
     @IBAction func changeBlueColorValue() {
-        blueValueLabel.text = String(format: "%.2f", blueColorSlider.value)
         updatePreview()
+    }
+    
+    @IBAction func doneButtonPressed() {
+        colorDelegate.setBackground(
+            red: redColorSlider.value,
+            green: greenColorSlider.value,
+            blue: blueColorSlider.value
+        )
+        dismiss(animated: true)
     }
     
     //MARK: - Private Methods
@@ -51,6 +65,10 @@ class ViewController: UIViewController {
             blue: CGFloat(blueColorSlider.value),
             alpha: 1
         )
+        
+        redValueLabel.text = String(format: "%.2f", redColorSlider.value)
+        greenValueLabel.text = String(format: "%.2f", greenColorSlider.value)
+        blueValueLabel.text = String(format: "%.2f", blueColorSlider.value)
     }
 
 }
